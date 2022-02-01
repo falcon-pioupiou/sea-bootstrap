@@ -45,7 +45,11 @@ echo "======= MICROK8S: exporting kubeconfig file"
 cd "$HOME" || exit
 mkdir -p .kube
 cd .kube || exit
+# generate the kubeconfig file
 sudo microk8s config | sudo tee config
+# remove permissions on kubeconfig
+chmod g-r "$HOME/.kube/config"
+chmod o-r "$HOME/.kube/config"
 cd .. || exit
 
 sudo microk8s kubectl get nodes
@@ -53,13 +57,13 @@ sudo microk8s kubectl get nodes
 echo "======= INSTALL FINISHED ========="
 echo "You can run the cloud-tools-image container with this command:"
 echo "sudo docker run --privileged=true \\"
-echo -e "\t-v /var/run/docker.sock:/var/run/docker.sock \\"
-echo -e "\t-v ~/.aws:/root/.aws:ro -it --rm \\"
-echo -e "\t-v ~/.config/gcloud:/root/.config/gcloud \\"
-echo -e "\t-v ~/.azure:/root/.azure \\"
-echo -e "\t-v ~/.kube:/root/.kube \\"
-echo -e "\t-e FALCON_CLIENT_ID=\"\$FALCON_CLIENT_ID\" \\"
-echo -e "\t-e FALCON_CLIENT_SECRET=\"\$FALCON_CLIENT_SECRET\" \\"
-echo -e "\t-e FALCON_CLOUD=\"\$FALCON_CLOUD\" \\"
-echo -e "\t-e FALCON_CID=\"\$FALCON_CID\" \\"
-echo -e "\tquay.io/crowdstrike/cloud-tools-image"
+echo "   -v /var/run/docker.sock:/var/run/docker.sock \\"
+echo "   -v ~/.aws:/root/.aws:ro -it --rm \\"
+echo "   -v ~/.config/gcloud:/root/.config/gcloud \\"
+echo "   -v ~/.azure:/root/.azure \\"
+echo "   -v ~/.kube:/root/.kube \\"
+echo "   -e FALCON_CLIENT_ID=\"\$FALCON_CLIENT_ID\" \\"
+echo "   -e FALCON_CLIENT_SECRET=\"\$FALCON_CLIENT_SECRET\" \\"
+echo "   -e FALCON_CLOUD=\"\$FALCON_CLOUD\" \\"
+echo "   -e FALCON_CID=\"\$FALCON_CID\" \\"
+echo "   quay.io/crowdstrike/cloud-tools-image"
