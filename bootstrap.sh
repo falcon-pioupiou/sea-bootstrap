@@ -48,8 +48,9 @@ cd .kube || exit
 # generate the kubeconfig file
 sudo microk8s config | sudo tee config
 # remove permissions on kubeconfig
-chmod g-r "$HOME/.kube/config"
-chmod o-r "$HOME/.kube/config"
+sudo chmod g-r "$HOME/.kube/config"
+sudo chmod o-r "$HOME/.kube/config"
+sudo chown $USER "$HOME/.kube/config"
 cd .. || exit
 
 sudo microk8s kubectl get nodes
