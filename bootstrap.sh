@@ -38,9 +38,14 @@ echo "======= MICROK8S: enable dns registry and istio"
 sudo microk8s enable dns registry istio
 
 echo "======= MICROK8S: configuring user session"
-echo -e "\nalias kubectl='microk8s kubectl'" >> ~/.bash_aliases
+#echo -e "\nalias kubectl='microk8s kubectl'" >> ~/.bash_aliases
 # shellcheck disable=SC1090
-source ~/.bash_aliases
+#source ~/.bash_aliases
+
+echo "======= KUBECTL: Download and configure kubectl"
+curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
 
 echo "======= MICROK8S: exporting kubeconfig file"
 cd "$HOME"
