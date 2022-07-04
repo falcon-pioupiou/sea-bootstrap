@@ -42,16 +42,15 @@ echo -e "\nalias kubectl='microk8s kubectl'" >> ~/.bash_aliases
 source ~/.bash_aliases
 
 echo "======= MICROK8S: exporting kubeconfig file"
-cd "$HOME" || exit
+cd "$HOME"
 mkdir -p .kube
-cd .kube || exit
-# generate the kubeconfig file
-sudo microk8s config | sudo tee config
-# remove permissions on kubeconfig
+echo "== generate the kubeconfig file"
+sudo microk8s config | sudo tee .kube/config
+
+echo "== remove excessive permissions on kubeconfig"
 sudo chmod g-r "$HOME/.kube/config"
 sudo chmod o-r "$HOME/.kube/config"
 sudo chown $USER "$HOME/.kube/config"
-cd .. || exit
 
 sudo microk8s kubectl get nodes
 
