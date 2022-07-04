@@ -8,6 +8,7 @@ sudo apt-get update && sudo apt-get install -y \
     ca-certificates \
     curl \
     gnupg \
+    jq \
     lsb-release
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
