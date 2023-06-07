@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# update the ubuntu config to not popup service to update
+echo "======= configuring ubuntu to not generate any popup during update ======="
+sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
+
 echo "======= DOCKER INSTALLATION"
 sudo apt-get remove docker docker-engine docker.io containerd runc
 
@@ -17,14 +21,6 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-#     sudo gpg --dearmor -o \
-#     /usr/share/keyrings/docker-archive-keyring.gpg
-
-# echo \
-#   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-#   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
@@ -79,4 +75,4 @@ echo "   -e FALCON_CLIENT_ID=\"\$FALCON_CLIENT_ID\" \\"
 echo "   -e FALCON_CLIENT_SECRET=\"\$FALCON_CLIENT_SECRET\" \\"
 echo "   -e FALCON_CLOUD=\"\$FALCON_CLOUD\" \\"
 echo "   -e FALCON_CID=\"\$FALCON_CID\" \\"
-echo "   quay.io/crowdstrike/cloud-tools-image"
+echo "   registry.stopbreaches.live/tools/toolbox"
