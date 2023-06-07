@@ -2,7 +2,7 @@
 
 # update the ubuntu config to not popup service to update
 echo "======= configuring ubuntu to not generate any popup during update ======="
-sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
+sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
 
 echo "======= DOCKER INSTALLATION"
 sudo apt-get remove docker docker-engine docker.io containerd runc
