@@ -27,8 +27,8 @@ sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli container
 echo "======= DOCKER : ADD $USER to docker usergroup"
 sudo usermod -a -G docker "$USER"
 
-echo "======= INSTALLATION OF microk8s channel 1.22/stable"
-sudo snap install microk8s --classic --channel=1.22/stable
+echo "======= INSTALLATION OF microk8s channel 1.27/stable"
+sudo snap install microk8s --classic --channel=1.27/stable
 
 echo "======= MICROK8S : ADD $USER to microk8s usergroup"
 sudo usermod -a -G microk8s "$USER"
@@ -65,14 +65,7 @@ sudo microk8s kubectl get nodes
 
 echo "======= INSTALL FINISHED ========="
 echo "You can run the cloud-tools-image container with this command:"
-echo "sudo docker run --privileged=true \\"
+echo "sudo docker run \\"
 echo "   -v /var/run/docker.sock:/var/run/docker.sock \\"
-echo "   -v ~/.aws:/root/.aws:ro -it --rm \\"
-echo "   -v ~/.config/gcloud:/root/.config/gcloud \\"
-echo "   -v ~/.azure:/root/.azure \\"
-echo "   -v ~/.kube:/root/.kube \\"
-echo "   -e FALCON_CLIENT_ID=\"\$FALCON_CLIENT_ID\" \\"
-echo "   -e FALCON_CLIENT_SECRET=\"\$FALCON_CLIENT_SECRET\" \\"
-echo "   -e FALCON_CLOUD=\"\$FALCON_CLOUD\" \\"
-echo "   -e FALCON_CID=\"\$FALCON_CID\" \\"
+echo "   -v $(pwd):/current \\"
 echo "   registry.stopbreaches.live/tools/toolbox"
