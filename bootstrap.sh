@@ -69,3 +69,5 @@ echo "sudo docker run \\"
 echo "   -v /var/run/docker.sock:/var/run/docker.sock \\"
 echo "   -v $(pwd):/current \\"
 echo "   registry.stopbreaches.live/tools/toolbox"
+
+newgrp docker
