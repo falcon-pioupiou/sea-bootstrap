@@ -42,12 +42,12 @@ sudo microk8s enable dns registry istio helm
 
 echo "======= MICROK8S: configuring user session"
 echo "--- kubectl alias"
-sudo echo \"alias kubectl='microk8s kubectl'\" > /home/$USER/.bash_aliases
-sudo echo \"alias k='microk8s kubectl'\" > /home/$USER/.bash_aliases
+sudo echo \"alias kubectl='microk8s kubectl'\" >> /home/$USER/.bashrc
+sudo echo \"alias k='microk8s kubectl'\" >> /home/$USER/.bashrc
 echo "--- helm alias"
-sudo echo \"alias helm='microk8s helm'\" >> /home/$USER/.bash_aliases
+sudo echo \"alias helm='microk8s helm'\" >> /home/$USER/.bashrc
 echo "--- kubectl completion"
-sudo echo \"source <(kubectl completion bash)\" >> /home/$USER/.bash_aliases
+sudo echo \"source <(kubectl completion bash)\" >> /home/$USER/.bashrc
 
 #echo -e "\nalias kubectl='microk8s kubectl'" >> ~/.bash_aliases
 # shellcheck disable=SC1090
