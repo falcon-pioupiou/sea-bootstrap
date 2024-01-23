@@ -38,17 +38,25 @@ echo "======= MICROK8S waiting server to be ready"
 sudo microk8s status --wait-ready
 
 echo "======= MICROK8S: enable dns registry and istio"
-sudo microk8s enable dns registry istio
+sudo microk8s enable dns registry istio helm
 
 echo "======= MICROK8S: configuring user session"
+echo "--- kubectl alias"
+sudo echo \"alias kubectl='microk8s kubectl'\" > /home/$USER/.bash_aliases
+sudo echo \"alias k='microk8s kubectl'\" > /home/$USER/.bash_aliases
+echo "--- helm alias"
+sudo echo \"alias helm='microk8s helm'\" >> /home/$USER/.bash_aliases
+echo "--- kubectl completion"
+sudo echo \"source <(kubectl completion bash)\" >> /home/$USER/.bash_aliases
+
 #echo -e "\nalias kubectl='microk8s kubectl'" >> ~/.bash_aliases
 # shellcheck disable=SC1090
 #source ~/.bash_aliases
 
 echo "======= KUBECTL: Download and configure kubectl"
-curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-chmod +x ./kubectl
-sudo mv ./kubectl /usr/local/bin/kubectl
+#curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+#chmod +x ./kubectl
+#sudo mv ./kubectl /usr/local/bin/kubectl
 
 echo "======= MICROK8S: exporting kubeconfig file"
 cd "$HOME"
@@ -64,10 +72,5 @@ sudo chown $USER "$HOME/.kube/config"
 sudo microk8s kubectl get nodes
 
 echo "======= INSTALL FINISHED ========="
-echo "You can run the cloud-tools-image container with this command:"
-echo "sudo docker run \\"
-echo "   -v /var/run/docker.sock:/var/run/docker.sock \\"
-echo "   -v $(pwd):/current \\"
-echo "   registry.stopbreaches.live/tools/toolbox"
 
 newgrp docker
