@@ -40,6 +40,9 @@ sudo microk8s status --wait-ready
 echo "======= MICROK8S: enable dns registry and istio"
 sudo microk8s enable dns registry istio helm
 
+echo "======= MICROK8S: enable community"
+sudo microk8s enable community
+
 echo "======= MICROK8S: configuring user session"
 echo "--- kubectl alias"
 sudo echo \"alias kubectl='microk8s kubectl'\" >> /home/$USER/.bashrc
