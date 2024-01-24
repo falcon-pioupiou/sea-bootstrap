@@ -85,6 +85,11 @@ sudo microk8s start
 
 sudo microk8s kubectl get nodes
 
+echo "======= Download additional tools (check-creds) to /usr/local/bin"
+target_arch=$(uname -p)
+sudo wget "https://github.com/falcon-pioupiou/lab-check/releases/download/v0.0.1/check-creds-linux-${target_arch}" -O /usr/local/bin/check-api-creds
+sudo chmod +x /usr/local/bin/check-api-creds
+
 echo "======= INSTALL FINISHED ========="
 
 newgrp docker
