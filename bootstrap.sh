@@ -90,6 +90,9 @@ target_arch=$(uname -p)
 sudo wget "https://github.com/falcon-pioupiou/lab-check/releases/download/v0.0.1/check-creds-linux-${target_arch}" -O /usr/local/bin/check-api-creds
 sudo chmod +x /usr/local/bin/check-api-creds
 
+sudo wget "https://github.com/CrowdStrike/falcon-scripts/releases/download/v1.1.9/falcon-container-sensor-pull.sh" -O /usr/local/bin/falcon-container-sensor-pull.sh
+sudo chmod +x /usr/local/bin/falcon-container-sensor-pull.sh
+
 echo "======= INSTALL FINISHED ========="
 
 newgrp docker
