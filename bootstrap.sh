@@ -72,6 +72,17 @@ sudo chmod g-r "$HOME/.kube/config"
 sudo chmod o-r "$HOME/.kube/config"
 sudo chown $USER "$HOME/.kube/config"
 
+
+random_suffix=$(openssl rand -hex 2)
+cluster_name="k8s-cluster-${random_suffix}"
+
+sudo microk8s stop
+echo "======= MICROK8S: renamin the cluster to ${cluster_name}"
+sudo sed -i "s/microk8s-cluster/${cluster_name}/g" /var/snap/microk8s/current/credentials/client.config
+sed -i "s/microk8s-cluster/${cluster_name}/g" $HOME/.kube/config
+
+sudo microk8s start
+
 sudo microk8s kubectl get nodes
 
 echo "======= INSTALL FINISHED ========="
