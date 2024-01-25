@@ -85,13 +85,19 @@ sudo microk8s start
 
 sudo microk8s kubectl get nodes
 
-echo "======= Download additional tools (check-creds) to /usr/local/bin"
+echo "======= Download additional tools"
+
+echo "== check-creds"
 target_arch=$(uname -p)
 sudo wget "https://github.com/falcon-pioupiou/lab-check/releases/download/v0.0.1/check-creds-linux-${target_arch}" -O /usr/local/bin/check-api-creds
 sudo chmod +x /usr/local/bin/check-api-creds
 
+echo "== falcon-container-sensor-pull"
 sudo wget "https://github.com/CrowdStrike/falcon-scripts/releases/download/v1.1.9/falcon-container-sensor-pull.sh" -O /usr/local/bin/falcon-container-sensor-pull.sh
 sudo chmod +x /usr/local/bin/falcon-container-sensor-pull.sh
+
+echo "== K9s"
+sudo wget -c https://github.com/derailed/k9s/releases/download/v0.31.7/k9s_Linux_amd64.tar.gz -O - | sudo tar xzvf - -C "/usr/local/bin"
 
 echo "======= INSTALL FINISHED ========="
 
