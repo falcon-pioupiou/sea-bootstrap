@@ -40,8 +40,17 @@ sudo microk8s status --wait-ready
 echo "======= MICROK8S: enable community"
 sudo microk8s enable community
 
-echo "======= MICROK8S: enable dns registry and istio"
-sudo microk8s enable dns registry istio helm traefik
+echo "======= MICROK8S: enable dns registry istio and traefik"
+echo "--- enable dns"
+sudo microk8s enable dns
+echo "--- enable registry"
+sudo microk8s enable registry
+echo "--- enable istio"
+sudo microk8s enable istio
+echo "--- enable helm"
+sudo microk8s enable helm
+echo "--- enable traefik"
+sudo microk8s enable traefik
 
 echo "======= MICROK8S: configuring user session"
 echo "--- kubectl alias"
