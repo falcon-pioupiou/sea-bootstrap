@@ -37,11 +37,11 @@ sudo chown -f -R "$USER" ~/.kube
 echo "======= MICROK8S waiting server to be ready"
 sudo microk8s status --wait-ready
 
-echo "======= MICROK8S: enable dns registry and istio"
-sudo microk8s enable dns registry istio helm
-
 echo "======= MICROK8S: enable community"
 sudo microk8s enable community
+
+echo "======= MICROK8S: enable dns registry and istio"
+sudo microk8s enable dns registry istio helm traefik
 
 echo "======= MICROK8S: configuring user session"
 echo "--- kubectl alias"
@@ -51,6 +51,10 @@ echo "--- helm alias"
 sudo echo "alias helm='microk8s helm'" >> /home/$USER/.bashrc
 echo "--- kubectl completion"
 sudo echo "source <(kubectl completion bash)" >> /home/$USER/.bashrc
+echo "--- k (alias) autocompletion"
+sudo echo "complete -o default -F __start_kubectl k" >> /home/$USER/.bashrc
+echo "--- helm autocompletion"
+sudo echo "source <(helm completion bash)" >> /home/$USER/.bashrc
 
 #echo -e "\nalias kubectl='microk8s kubectl'" >> ~/.bash_aliases
 # shellcheck disable=SC1090
