@@ -118,8 +118,8 @@ sudo chmod -x /etc/update-motd.d/10-help-text
 sudo chmod -x /etc/update-motd.d/50-landscape-sysinfo
 sudo apt-get install -y figlet
 
-sudo echo "#!/bin/bash" | sudo tee /etc/update-motd.d/11-cs-logo
-sudo echo "figlet -f slant CrowdStrike" | sudo tee /etc/update-motd.d/11-cs-logo
+sudo echo '#!/bin/bash' | sudo tee /etc/update-motd.d/11-cs-logo
+sudo echo 'figlet "CrowdStrike Lab"' | sudo tee /etc/update-motd.d/11-cs-logo
 sudo chmod +x /etc/update-motd.d/11-cs-logo
 
 
