@@ -54,10 +54,10 @@ sudo microk8s enable traefik
 
 echo "======= MICROK8S: configuring user session"
 echo "--- kubectl alias"
-sudo echo "alias kubectl='microk8s kubectl'" >> /home/$USER/.bashrc
-sudo echo "alias k='microk8s kubectl'" >> /home/$USER/.bashrc
+sudo echo "alias kubectl='microk8s kubectl'" >> /home/$USER/.bash_aliases
+sudo echo "alias k='microk8s kubectl'" >> /home/$USER/.bash_aliases
 echo "--- helm alias"
-sudo echo "alias helm='microk8s helm'" >> /home/$USER/.bashrc
+sudo echo "alias helm='microk8s helm'" >> /home/$USER/.bash_aliases
 echo "--- kubectl completion"
 sudo echo "source <(kubectl completion bash)" >> /home/$USER/.bashrc
 echo "--- k (alias) autocompletion"
@@ -111,6 +111,10 @@ sudo chmod +x /usr/local/bin/falcon-container-sensor-pull.sh
 
 echo "== K9s"
 sudo wget -c https://github.com/derailed/k9s/releases/download/v0.31.7/k9s_Linux_amd64.tar.gz -O - | sudo tar xzvf - -C "/usr/local/bin"
+
+echo "== persist-creds"
+sudo wget "https://raw.githubusercontent.com/falcon-pioupiou/sea-bootstrap/master/persist-creds" -O /usr/local/bin/persist-creds
+sudo chmod +x /usr/local/bin/persist-creds
 
 echo "======= Update motd"
 
