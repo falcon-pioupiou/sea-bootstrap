@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ -z "$FALCON_CLIENT_ID" ]; then
+  echo "FALCON_CLIENT_ID is not defined"
+else
+  echo "saving FALCON_CLIENT_ID"
+  if grep -q "export FALCON_CLIENT_ID=" ~/.bashrc; then
+    echo "FALCON_CLIENT_ID is already persisted"
+  else
+    echo "export FALCON_CLIENT_ID=$FALCON_CLIENT_ID" >> ~/.bashrc
+ fi
+fi
+
+if [ -z "$FALCON_CLIENT_SECRET" ]; then
+  echo "FALCON_CLIENT_SECRET is not defined"
+else
+  echo "saving FALCON_CLIENT_SECRET"
+  if grep -q "export FALCON_CLIENT_SECRET=" ~/.bashrc; then
+    echo "FALCON_CLIENT_SECRET is already persisted"
+  else
+    echo "export FALCON_CLIENT_SECRET=$FALCON_CLIENT_SECRET" >> ~/.bashrc
+  fi
+fi
