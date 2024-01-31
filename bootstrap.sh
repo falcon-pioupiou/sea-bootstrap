@@ -119,7 +119,7 @@ sudo chmod +x /usr/local/bin/persist-creds
 echo "======= Update motd"
 
 sudo chmod -x /etc/update-motd.d/10-help-text
-sudo chmod -x /etc/update-motd.d/50-landscape-sysinfo
+sudo chmod -x /etc/update-motd.d/50*
 sudo chmod -x /etc/update-motd.d/90-updates-available
 sudo chmod -x /etc/update-motd.d/91*
 sudo chmod -x /etc/update-motd.d/95*
