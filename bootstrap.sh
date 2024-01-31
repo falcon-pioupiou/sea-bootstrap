@@ -112,6 +112,18 @@ sudo chmod +x /usr/local/bin/falcon-container-sensor-pull.sh
 echo "== K9s"
 sudo wget -c https://github.com/derailed/k9s/releases/download/v0.31.7/k9s_Linux_amd64.tar.gz -O - | sudo tar xzvf - -C "/usr/local/bin"
 
+echo "======= Update motd"
+
+sudo chmod -x /etc/update-motd.d/10-help-text
+sudo chmod -x /etc/update-motd.d/50-landscape-sysinfo
+sudo apt-get install -y figlet
+
+sudo echo "#!/bin/bash" | sudo tee /etc/update-motd.d/11-cs-logo
+sudo echo "figlet -f slant CrowdStrike" | sudo tee /etc/update-motd.d/11-cs-logo
+sudo chmod +x /etc/update-motd.d/11-cs-logo
+
+
 echo "======= INSTALL FINISHED ========="
+
 
 newgrp docker
