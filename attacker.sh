@@ -35,6 +35,12 @@ sudo chmod -x /etc/update-motd.d/90-updates-available
 sudo chmod -x /etc/update-motd.d/91*
 sudo chmod -x /etc/update-motd.d/95*
 
+sudo apt-get install -y figlet
+
+sudo echo '#!/bin/bash' | sudo tee -a /etc/update-motd.d/11-logo
+sudo echo 'figlet "Attacker"' | sudo tee -a /etc/update-motd.d/11-logo
+sudo chmod +x /etc/update-motd.d/11-logo
+
 echo "======= INSTALL FINISHED ========="
 
 
