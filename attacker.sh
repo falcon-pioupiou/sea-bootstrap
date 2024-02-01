@@ -43,4 +43,4 @@ sudo chmod +x /etc/update-motd.d/11-logo
 
 echo "======= INSTALL FINISHED ========="
 
-
+newgrp docker
