@@ -27,6 +27,11 @@ sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli container
 echo "======= DOCKER : ADD $USER to docker usergroup"
 sudo usermod -a -G docker "$USER"
 
+echo "======= Preparing the attacker machine"
+
+curl -sSL "https://raw.githubusercontent.com/CrowdStrike/detection-container/main/bin/evil/sample" -o /tmp/malware
+
+
 echo "======= Update motd"
 
 sudo chmod -x /etc/update-motd.d/10-help-text
@@ -35,7 +40,7 @@ sudo chmod -x /etc/update-motd.d/90-updates-available
 sudo chmod -x /etc/update-motd.d/91*
 sudo chmod -x /etc/update-motd.d/95*
 
-sudo apt-get install -y figlet
+sudo apt-get install -y figlet net-tools
 
 sudo echo '#!/bin/bash' | sudo tee -a /etc/update-motd.d/11-logo
 sudo echo 'figlet "Attacker"' | sudo tee -a /etc/update-motd.d/11-logo
