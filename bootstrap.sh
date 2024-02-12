@@ -106,7 +106,7 @@ sudo wget "https://github.com/falcon-pioupiou/lab-check/releases/download/v0.0.1
 sudo chmod +x /usr/local/bin/check-api-creds
 
 echo "== falcon-container-sensor-pull"
-sudo wget "https://raw.githubusercontent.com/CrowdStrike/falcon-scripts/main/bash/containers/falcon-container-sensor-pull/falcon-container-sensor-pull.sh" -O /usr/local/bin/falcon-container-sensor-pull.sh
+sudo wget "https://github.com/CrowdStrike/falcon-scripts/releases/download/v1.3.1/falcon-container-sensor-pull.sh" -O /usr/local/bin/falcon-container-sensor-pull.sh
 sudo chmod +x /usr/local/bin/falcon-container-sensor-pull.sh
 
 echo "== K9s"
