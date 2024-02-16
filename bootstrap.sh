@@ -92,6 +92,8 @@ cluster_name="k8s-cluster-${random_suffix}"
 sudo microk8s stop
 echo "======= MICROK8S: renamin the cluster to ${cluster_name}"
 sudo sed -i "s/microk8s-cluster/${cluster_name}/g" /var/snap/microk8s/current/credentials/client.config
+echo "--image-gc-low-threshold=95" | sudo tee -a /var/snap/microk8s/current/args/kubelet
+echo "--image-gc-high-threshold=97" | sudo tee -a /var/snap/microk8s/current/args/kubelet
 sed -i "s/microk8s-cluster/${cluster_name}/g" $HOME/.kube/config
 
 sudo microk8s start
