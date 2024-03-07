@@ -145,7 +145,7 @@ sudo chmod -x /etc/update-motd.d/95*
 sudo apt-get install -y figlet
 
 sudo echo '#!/bin/bash' | sudo tee -a /etc/update-motd.d/11-lab-logo
-sudo echo 'figlet "$motd_prefix$motd_text"' | sudo tee -a /etc/update-motd.d/11-lab-logo
+sudo -E echo 'figlet "$motd_prefix$motd_text"' | sudo tee -a /etc/update-motd.d/11-lab-logo
 sudo chmod +x /etc/update-motd.d/11-lab-logo
 
 
