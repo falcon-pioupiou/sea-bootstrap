@@ -6,7 +6,7 @@ sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/nee
 
 echo "======= setting hostname and preparing kubernetes cluster_name"
 
-motd_text="Attacker"
+export motd_text="Attacker"
 # configure a default cluster name in case of bootstrap in any environment
 
 # encounter environment ?
@@ -58,7 +58,7 @@ sudo chmod -x /etc/update-motd.d/95*
 sudo apt-get install -y figlet net-tools
 
 sudo echo '#!/bin/bash' | sudo tee -a /etc/update-motd.d/11-logo
-sudo echo 'figlet "$motd_text"' | sudo tee -a /etc/update-motd.d/11-logo
+sudo -E echo 'figlet "$motd_text"' | sudo tee -a /etc/update-motd.d/11-logo
 sudo chmod +x /etc/update-motd.d/11-logo
 
 echo "======= INSTALL FINISHED ========="
