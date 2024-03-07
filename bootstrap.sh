@@ -4,6 +4,16 @@
 echo "======= configuring ubuntu to not generate any popup during update ======="
 sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
 
+echo "======= setting hostname"
+if [ -f /tmp/alias.txt ]; then
+  hostname=$(cat /tmp/alias.txt)
+  suffix=""
+  if [ -f /tmp/profile.txt ]; then
+    suffix="-$(cat /tmp/profile.txt)"
+  fi
+  sudo hostnamectl hostname "$hostname$suffix"
+fi
+
 echo "======= DOCKER INSTALLATION"
 sudo apt-get remove docker docker-engine docker.io containerd runc
 
