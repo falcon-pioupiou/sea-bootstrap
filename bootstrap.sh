@@ -4,10 +4,19 @@
 echo "======= configuring ubuntu to not generate any popup during update ======="
 sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
 
-echo "======= setting hostname"
+echo "======= setting hostname and preparing kubernetes cluster_name"
+
+random_suffix=$(openssl rand -hex 2)
+cluster_name="k8s-cluster-${random_suffix}"
+motd_text="Lab"
+# configure a default cluster name in case of bootstrap in any environment
+
+# encounter environment ?
 if [ -f /tmp/alias.txt ]; then
   hostname=$(cat /tmp/alias.txt)
   suffix=""
+  cluster_name=$hostname
+  motd_prefix="$(echo "Q3Jvd2RTdHJpa2U=" | base64 -d) "
   if [ -f /tmp/profile.txt ]; then
     suffix="-$(cat /tmp/profile.txt)"
   fi
@@ -95,12 +104,8 @@ sudo chmod g-r "$HOME/.kube/config"
 sudo chmod o-r "$HOME/.kube/config"
 sudo chown $USER "$HOME/.kube/config"
 
-
-random_suffix=$(openssl rand -hex 2)
-cluster_name="k8s-cluster-${random_suffix}"
-
 sudo microk8s stop
-echo "======= MICROK8S: renamin the cluster to ${cluster_name}"
+echo "======= MICROK8S: renaming the cluster to ${cluster_name}"
 sudo sed -i "s/microk8s-cluster/${cluster_name}/g" /var/snap/microk8s/current/credentials/client.config
 echo "--image-gc-low-threshold=95" | sudo tee -a /var/snap/microk8s/current/args/kubelet
 echo "--image-gc-high-threshold=97" | sudo tee -a /var/snap/microk8s/current/args/kubelet
@@ -139,9 +144,9 @@ sudo chmod -x /etc/update-motd.d/95*
 
 sudo apt-get install -y figlet
 
-sudo echo '#!/bin/bash' | sudo tee -a /etc/update-motd.d/11-cs-logo
-sudo echo 'figlet "CrowdStrike Lab"' | sudo tee -a /etc/update-motd.d/11-cs-logo
-sudo chmod +x /etc/update-motd.d/11-cs-logo
+sudo echo '#!/bin/bash' | sudo tee -a /etc/update-motd.d/11-lab-logo
+sudo echo 'figlet "$motd_prefix$motd_text"' | sudo tee -a /etc/update-motd.d/11-lab-logo
+sudo chmod +x /etc/update-motd.d/11-lab-logo
 
 
 echo "======= INSTALL FINISHED ========="
