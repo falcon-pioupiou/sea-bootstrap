@@ -4,6 +4,21 @@
 echo "======= configuring ubuntu to not generate any popup during update ======="
 sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
 
+echo "======= setting hostname and preparing kubernetes cluster_name"
+
+motd_text="Attacker"
+# configure a default cluster name in case of bootstrap in any environment
+
+# encounter environment ?
+if [ -f /tmp/alias.txt ]; then
+  hostname=$(cat /tmp/alias.txt)
+  suffix=""
+  if [ -f /tmp/profile.txt ]; then
+    suffix="-$(cat /tmp/profile.txt)"
+  fi
+  sudo hostnamectl hostname "$hostname$suffix"
+fi
+
 echo "======= DOCKER INSTALLATION"
 sudo apt-get remove docker docker-engine docker.io containerd runc
 
@@ -43,7 +58,7 @@ sudo chmod -x /etc/update-motd.d/95*
 sudo apt-get install -y figlet net-tools
 
 sudo echo '#!/bin/bash' | sudo tee -a /etc/update-motd.d/11-logo
-sudo echo 'figlet "Attacker"' | sudo tee -a /etc/update-motd.d/11-logo
+sudo echo 'figlet "$motd_text"' | sudo tee -a /etc/update-motd.d/11-logo
 sudo chmod +x /etc/update-motd.d/11-logo
 
 echo "======= INSTALL FINISHED ========="
