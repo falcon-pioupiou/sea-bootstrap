@@ -4,6 +4,12 @@
 echo "======= configuring ubuntu to not generate any popup during update ======="
 sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
 
+echo "====== Disabling Kernel Update"
+IMG_VERSION=`dpkg --list | grep linux-image | head -1 | awk '{ print $2 }'`
+HDR_VERSION=`dpkg --list | grep linux-headers | head -1 | awk '{ print $2 }'`
+sudo apt-mark hold linux-image-aws linux-headers-aws
+sudo apt-mark hold $IMG_VERSION $HDR_VERSION
+
 echo "======= setting hostname and preparing kubernetes cluster_name"
 
 random_suffix=$(openssl rand -hex 2)
